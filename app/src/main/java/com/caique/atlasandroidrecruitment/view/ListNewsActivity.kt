@@ -2,6 +2,7 @@ package com.caique.atlasandroidrecruitment.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -51,7 +52,9 @@ class ListNewsActivity : AppCompatActivity() {
 
     private fun onItemClick(newsAdapter: NewsListRecyclerViewAdapter) {
         newsAdapter.onItemClick = {
-            Toast.makeText(this, it.title + "", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, NewsInfoActivity::class.java)
+            intent.putExtra("article", it)
+            startActivity(intent)
         }
     }
 

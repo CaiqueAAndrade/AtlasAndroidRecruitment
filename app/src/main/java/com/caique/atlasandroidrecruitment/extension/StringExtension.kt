@@ -14,5 +14,4 @@ fun String.formatDate(): String {
     } else {
         this
     }
-
 }
