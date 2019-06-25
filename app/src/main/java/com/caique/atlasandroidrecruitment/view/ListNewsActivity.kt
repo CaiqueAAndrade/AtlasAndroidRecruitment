@@ -10,6 +10,8 @@ import android.widget.Toast
 import com.caique.atlasandroidrecruitment.R
 import com.caique.atlasandroidrecruitment.adapter.NewsListRecyclerViewAdapter
 import com.caique.atlasandroidrecruitment.model.NewsResponse
+import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_ANIMATION_SIZE
+import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_JSON
 import com.caique.atlasandroidrecruitment.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_listnews.*
 
@@ -54,6 +56,9 @@ class ListNewsActivity : AppCompatActivity() {
     }
 
     private fun onFailure() {
-
+        loading.layoutParams.width = ERROR_ANIMATION_SIZE
+        loading.layoutParams.height = ERROR_ANIMATION_SIZE
+        loading.setAnimation(ERROR_JSON)
+        loading.playAnimation()
     }
 }
