@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.caique.atlasandroidrecruitment.R
 import com.caique.atlasandroidrecruitment.model.Article
+import com.caique.atlasandroidrecruitment.extension.formatDate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_news.view.*
 
@@ -29,7 +32,7 @@ class NewsListRecyclerViewAdapter(val context: Context, val articles: ArrayList<
 
         p0.title.text = article.title
         p0.description.text = article.description
-        p0.date.text = article.publishedAt
+        p0.date.text = article.publishedAt.formatDate()
         p0.source.text = article.source.name
 
         Picasso.get().load(article.urlToImage).error(R.drawable.imagenotfound).into(p0.image)
@@ -38,11 +41,11 @@ class NewsListRecyclerViewAdapter(val context: Context, val articles: ArrayList<
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image = itemView.image
-        val title = itemView.tv_title
-        val description = itemView.tv_description
-        val date = itemView.tv_date
-        val source = itemView.tv_source
+        val image: ImageView = itemView.image
+        val title: TextView = itemView.tv_title
+        val description: TextView = itemView.tv_description
+        val date: TextView = itemView.tv_date
+        val source: TextView = itemView.tv_source
 
         init {
             itemView.setOnClickListener {
