@@ -38,7 +38,6 @@ class NewsInfoActivity : AppCompatActivity() {
     }
 
     private fun setupUi(article: Article) {
-        article.publishedAt = article.publishedAt.formatDate()
         newsInfoActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_newsinfo)
         newsInfoActivityBinding.setVariable(1, article)
         newsInfoActivityBinding.executePendingBindings()

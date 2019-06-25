@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
+import com.caique.atlasandroidrecruitment.extension.formatDate
 import com.caique.atlasandroidrecruitment.model.Article
 import com.caique.atlasandroidrecruitment.model.NewsResponse
 import com.caique.atlasandroidrecruitment.repository.NewsRepository
@@ -23,6 +24,7 @@ class NewsViewModel (application: Application) : AndroidViewModel(application) {
     }
 
     fun setArticlesParcelable(article: Article) {
+        article.publishedAt = article.publishedAt.formatDate()
         getArticle.postValue(article)
     }
 }
