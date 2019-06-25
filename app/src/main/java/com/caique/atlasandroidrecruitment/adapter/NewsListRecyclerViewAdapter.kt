@@ -13,7 +13,7 @@ import com.caique.atlasandroidrecruitment.extension.formatDate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_news.view.*
 
-class NewsListRecyclerViewAdapter(val context: Context, val articles: ArrayList<Article>) :
+class NewsListRecyclerViewAdapter(private val context: Context, val articles: ArrayList<Article>) :
     RecyclerView.Adapter<NewsListRecyclerViewAdapter.ViewHolder>() {
 
     var onItemClick: ((Article) -> Unit)? = null
