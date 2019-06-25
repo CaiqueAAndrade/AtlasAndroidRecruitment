@@ -67,5 +67,6 @@ class ListNewsActivity : AppCompatActivity() {
         loading.layoutParams.height = ERROR_ANIMATION_SIZE
         loading.setAnimation(ERROR_JSON)
         loading.playAnimation()
+        loading.loop(false)
     }
 }
