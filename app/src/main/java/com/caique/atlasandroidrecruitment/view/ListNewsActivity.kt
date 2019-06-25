@@ -30,6 +30,9 @@ class ListNewsActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
+        newsViewModel.handlerErro().observe(this, Observer {
+          Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
         newsViewModel.getNews().observe(this, Observer {
             if (it != null) {
                 loading.visibility = View.GONE

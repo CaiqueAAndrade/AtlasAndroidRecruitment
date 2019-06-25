@@ -10,6 +10,7 @@ import retrofit2.Response
 class NewsRepository  {
 
     private val service: CallApi = RetrofitClientInstance.getRetrofitInstance()
+    val error: MutableLiveData<String> = MutableLiveData()
 
     fun getNews() : MutableLiveData<NewsResponse> {
         val newsResponseMutableLiveData: MutableLiveData<NewsResponse> = MutableLiveData()
@@ -19,6 +20,7 @@ class NewsRepository  {
             }
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                 newsResponseMutableLiveData.postValue(null)
+                error.postValue(t.message)
             }
         })
         return newsResponseMutableLiveData
