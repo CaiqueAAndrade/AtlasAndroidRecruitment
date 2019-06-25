@@ -9,6 +9,7 @@ import com.caique.atlasandroidrecruitment.extension.formatDate
 import com.caique.atlasandroidrecruitment.model.Article
 import com.squareup.picasso.Picasso
 
+
 class NewsInfoActivity : AppCompatActivity() {
 
     lateinit var newsInfoActivityBinding:  ActivityNewsinfoBinding

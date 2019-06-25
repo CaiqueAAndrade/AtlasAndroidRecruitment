@@ -91,7 +91,7 @@
                 android:textSize="18sp"
                 tools:text="https://www.newsbtc.com/2019/06/25/bitcoin-after-pushing-past-11k-analysts-believe-btc-could-climb-significantly-higher-heres-why/"
                 android:text="@{article.url}"
-                android:textColor="@android:color/holo_blue_dark"
+                android:autoLink="web"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_author"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
