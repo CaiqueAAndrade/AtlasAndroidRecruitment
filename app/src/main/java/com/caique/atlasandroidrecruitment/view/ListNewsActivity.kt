@@ -13,6 +13,7 @@ import com.caique.atlasandroidrecruitment.adapter.NewsListRecyclerViewAdapter
 import com.caique.atlasandroidrecruitment.model.NewsResponse
 import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_ANIMATION_SIZE
 import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_JSON
+import com.caique.atlasandroidrecruitment.utils.Constants.Companion.SERIALIZABLE_KEY
 import com.caique.atlasandroidrecruitment.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_listnews.*
 
@@ -30,7 +31,7 @@ class ListNewsActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        newsViewModel.handlerErro().observe(this, Observer {
+        newsViewModel.handlerError().observe(this, Observer {
           Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
         newsViewModel.getNews().observe(this, Observer {
@@ -56,7 +57,7 @@ class ListNewsActivity : AppCompatActivity() {
     private fun onItemClick(newsAdapter: NewsListRecyclerViewAdapter) {
         newsAdapter.onItemClick = {
             val intent = Intent(this, NewsInfoActivity::class.java)
-            intent.putExtra("article", it)
+            intent.putExtra(SERIALIZABLE_KEY, it)
             startActivity(intent)
         }
     }

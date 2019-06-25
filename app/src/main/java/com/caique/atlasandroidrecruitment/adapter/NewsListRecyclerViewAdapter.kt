@@ -2,6 +2,7 @@ package com.caique.atlasandroidrecruitment.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,11 @@ class NewsListRecyclerViewAdapter(private val context: Context, val articles: Ar
         p0.date.text = article.publishedAt.formatDate()
         p0.source.text = article.source.name
 
-        Picasso.get().load(article.urlToImage).error(R.drawable.imagenotfound).into(p0.image)
+        try {
+            Picasso.get().load(article.urlToImage).error(R.drawable.imagenotfound).into(p0.image)
+        } catch (e: IllegalArgumentException) {
+            Log.e("Error", e.message + "")
+        }
 
     }
 
