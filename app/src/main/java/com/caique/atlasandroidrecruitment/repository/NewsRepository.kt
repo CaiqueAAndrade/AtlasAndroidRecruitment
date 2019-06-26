@@ -1,5 +1,6 @@
 package com.caique.atlasandroidrecruitment.repository
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.caique.atlasandroidrecruitment.data.remote.CallApi
 import com.caique.atlasandroidrecruitment.data.remote.RetrofitClientInstance
@@ -10,7 +11,11 @@ import retrofit2.Response
 class NewsRepository  {
 
     private val service: CallApi = RetrofitClientInstance.getRetrofitInstance()
-    val error: MutableLiveData<String> = MutableLiveData()
+    private val error: MutableLiveData<String> = MutableLiveData()
+
+    fun getError() : LiveData<String> {
+        return error
+    }
 
     fun getNews() : MutableLiveData<NewsResponse> {
         val newsResponseMutableLiveData: MutableLiveData<NewsResponse> = MutableLiveData()

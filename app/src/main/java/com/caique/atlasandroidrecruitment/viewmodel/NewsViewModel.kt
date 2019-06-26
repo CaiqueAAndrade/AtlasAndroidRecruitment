@@ -49,7 +49,7 @@ class NewsViewModel (application: Application) : AndroidViewModel(application) {
     }
 
     private fun handlerError() {
-        val error: MutableLiveData<String> = newsRepository.error
+        val error: LiveData<String> = newsRepository.getError()
         error.observeForever(object : Observer<String> {
             override fun onChanged(t: String?) {
                 showError.postValue(t)
