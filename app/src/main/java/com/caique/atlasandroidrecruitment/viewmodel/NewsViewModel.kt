@@ -55,7 +55,6 @@ class NewsViewModel (application: Application) : AndroidViewModel(application) {
                 showError.postValue(t)
                 error.removeObserver(this)
             }
-
         })
     }
 
