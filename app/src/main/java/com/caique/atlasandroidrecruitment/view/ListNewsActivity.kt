@@ -11,8 +11,6 @@ import android.widget.Toast
 import com.caique.atlasandroidrecruitment.R
 import com.caique.atlasandroidrecruitment.adapter.NewsListRecyclerViewAdapter
 import com.caique.atlasandroidrecruitment.model.NewsResponse
-import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_ANIMATION_SIZE
-import com.caique.atlasandroidrecruitment.utils.Constants.Companion.ERROR_JSON
 import com.caique.atlasandroidrecruitment.utils.Constants.Companion.SERIALIZABLE_KEY
 import com.caique.atlasandroidrecruitment.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_listnews.*
@@ -27,19 +25,28 @@ class ListNewsActivity : AppCompatActivity() {
 
         newsViewModel = ViewModelProviders.of(this)[NewsViewModel::class.java]
 
+        subscribe()
         setupUi()
     }
 
     private fun setupUi() {
-        newsViewModel.handlerError().observe(this, Observer {
-          Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        newsViewModel.getNews()
+    }
+
+    private fun subscribe() {
+        newsViewModel.showErrorObserver().observe(this, Observer {
+          if (it != null) {
+              onFailure(it)
+          }
         })
-        newsViewModel.getNews().observe(this, Observer {
+        newsViewModel.newsResponseObserver().observe(this, Observer {
             if (it != null) {
-                loading.visibility = View.GONE
                 setRecyclerView(it)
-            } else {
-                onFailure()
+            }
+        })
+        newsViewModel.showLoadingObservable().observe(this, Observer {
+            if (it != null) {
+                showLoading(it)
             }
         })
     }
@@ -62,11 +69,14 @@ class ListNewsActivity : AppCompatActivity() {
         }
     }
 
-    private fun onFailure() {
-        loading.layoutParams.width = ERROR_ANIMATION_SIZE
-        loading.layoutParams.height = ERROR_ANIMATION_SIZE
-        loading.setAnimation(ERROR_JSON)
-        loading.playAnimation()
-        loading.loop(false)
+    private fun onFailure(error: String) {
+        error_animation.visibility = View.VISIBLE
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showLoading(boolean: Boolean) {
+        if (!boolean) {
+            loading.visibility = View.GONE
+        }
     }
 }

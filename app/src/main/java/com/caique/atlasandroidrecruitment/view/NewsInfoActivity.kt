@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.caique.atlasandroidrecruitment.R
 import com.caique.atlasandroidrecruitment.databinding.ActivityNewsinfoBinding
-import com.caique.atlasandroidrecruitment.extension.formatDate
 import com.caique.atlasandroidrecruitment.model.Article
 import com.caique.atlasandroidrecruitment.utils.Constants.Companion.SERIALIZABLE_KEY
 import com.caique.atlasandroidrecruitment.viewmodel.NewsViewModel
@@ -30,7 +29,7 @@ class NewsInfoActivity : AppCompatActivity() {
     }
 
     private fun subscribe() {
-        newsViewModel.getArticle.observe(this, Observer {
+        newsViewModel.getArticleObservable().observe(this, Observer {
             if (it != null) {
                 setupUi(it)
             }

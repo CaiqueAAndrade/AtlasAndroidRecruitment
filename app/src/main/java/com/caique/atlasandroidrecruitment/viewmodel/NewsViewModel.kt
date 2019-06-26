@@ -13,14 +13,50 @@ import com.caique.atlasandroidrecruitment.repository.NewsRepository
 class NewsViewModel (application: Application) : AndroidViewModel(application) {
 
     private val newsRepository = NewsRepository.NewsRepositoryProvider.provideNewsRepository()
-    val getArticle: MutableLiveData<Article> = MutableLiveData()
+    private val newsResponse: MutableLiveData<NewsResponse> = MutableLiveData()
+    private val getArticle: MutableLiveData<Article> = MutableLiveData()
+    private val showLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val showError: MutableLiveData<String> = MutableLiveData()
 
-    fun getNews() : LiveData<NewsResponse> {
-        return newsRepository.getNews()
+    fun getArticleObservable() : LiveData<Article> {
+        return getArticle
     }
 
-    fun handlerError() : LiveData<String>{
-        return newsRepository.error
+    fun showLoadingObservable() : LiveData<Boolean> {
+        return showLoading
+    }
+
+    fun newsResponseObserver() : LiveData<NewsResponse> {
+        return newsResponse
+    }
+
+    fun showErrorObserver() : LiveData<String> {
+        return showError
+    }
+
+    fun getNews() {
+        showLoading.postValue(true)
+        val newsResponseObserver: LiveData<NewsResponse> = newsRepository.getNews()
+        handlerError()
+        newsResponseObserver.observeForever(object : Observer<NewsResponse> {
+            override fun onChanged(t: NewsResponse?) {
+                newsResponse.postValue(t)
+                showLoading.postValue(false)
+                newsResponseObserver.removeObserver(this)
+            }
+
+        })
+    }
+
+    private fun handlerError() {
+        val error: MutableLiveData<String> = newsRepository.error
+        error.observeForever(object : Observer<String> {
+            override fun onChanged(t: String?) {
+                showError.postValue(t)
+                error.removeObserver(this)
+            }
+
+        })
     }
 
     fun setArticlesParcelable(article: Article) {
